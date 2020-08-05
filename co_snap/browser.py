@@ -11,6 +11,7 @@ from os import environ, path
 from collections import namedtuple
 import re
 import argparse
+from inspect import cleandoc
 import sys
 from co_snap import xpath, cli
 
@@ -30,14 +31,6 @@ class AnyEc:
                     return True
             except:
                 pass
-
-
-def delete(driver, xpath):
-    driver.execute_script(
-        f"""
-        var target = document.evaluate("{xpath}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-        target.singleNodeValue.parentNode.removeChild(target.singleNodeValue);"""
-    )
 
 
 def wait_for_tree(driver):
@@ -81,6 +74,37 @@ def pipeline(args):
 
     # provide driver to caller
     return driver
+
+
+def _target_js(xpath):
+    return f"""var target = document.evaluate("{xpath}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;\n"""
+
+
+
+def _restyle_scrollbars(xpath, width):
+    return _target_js(xpath) + cleandoc(
+        """
+            var styleTag = document.createElement('style');
+            var dynamicStyleTag = document.createTextNode(
+            "::webkit-scrollbar { width: """ + str(width) + """px; }");
+            styleTag.appendChild(dynamicStyleTag);
+            target.appendChild(styleTag);
+       """
+    )
+
+
+def delete(driver, xpath):
+    js = _target_js(xpath) + "target.parentNode.removeChild(target);"
+    driver.execute_script(js)
+
+
+# not sure if this is a good idea, but leaving it here for future tinkering
+def hide_scrollbars(driver, xpath, restore_child=None):
+
+    # set scrollbar width to zero
+    js = _restyle_scrollbars(xpath, 0)
+    print(js)
+    driver.execute_script(js)
 
 
 def launch():

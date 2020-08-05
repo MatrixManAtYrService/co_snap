@@ -14,3 +14,7 @@ root_node_narrow = (
 stdout_box_wide = "/html/body/div[1]/div/div[2]/div[2]/div/div[5]/div"
 
 two_columns = "/html/body/div[1]/div/div[2]"
+
+right_column = "/html/body/div[1]/div/div[2]/div[2]/div"
+
+timeline_box = "/html/body/div[1]/div/div[2]/div[2]/div/div[2]"

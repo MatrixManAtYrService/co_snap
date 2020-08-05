@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from Screenshot import Screenshot_Clipping
 from pathlib import Path
-import IPython
 import cv2
 from math import sqrt
 
@@ -47,10 +46,12 @@ def arrow(orig_file, path, new_file):
     to_xy = path[-1]
 
     # special thanks to Pythagoras, Euclid, and Descartes
-    arrow_length = sqrt((to_xy[0] - from_xy[0])**2 + (to_xy[1] - from_xy[1])**2)
+    arrow_length = sqrt((to_xy[0] - from_xy[0]) ** 2 + (to_xy[1] - from_xy[1]) ** 2)
 
     tip_length_ratio = arrowhead_size / arrow_length
-    image = cv2.arrowedLine(image, from_xy, to_xy, color, arrow_thickness, tipLength = tip_length_ratio  )
+    image = cv2.arrowedLine(
+        image, from_xy, to_xy, color, arrow_thickness, tipLength=tip_length_ratio
+    )
     print(f"arrow from {from_xy} -> {to_xy}")
 
     cv2.imwrite(new_file, image)
