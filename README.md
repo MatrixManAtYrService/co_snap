@@ -1,6 +1,7 @@
 # co_snap
 
 ...is a utility for generating conducto screenshots.
+Unless you care about conducto docs as much as I do, you probably don't need this.
 
 ## Prerequisites
 
