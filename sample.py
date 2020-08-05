@@ -15,13 +15,13 @@ root.find_element_by_xpath(xpath.first_child).click()
 browser.wait_for_stdout(dom)
 browser.delete(dom, xpath.abspath)
 
-# screenshots
+# filenames for intermediate image steps
 step = [ "sample.guts.partial.png",
          "sample.cropped.partial.png",
          "sample.arrow.partial.png",
          "sample.png" ]
 
-#driver.save_screenshot(step[0])
+# create the screenshot
 middle = root.find_element_by_xpath(xpath.two_columns)
 png.screenshot_element(dom, middle, step[0])
 png.top_only(step[0], 245, step[1])
