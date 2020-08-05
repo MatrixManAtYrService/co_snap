@@ -25,5 +25,5 @@ step = [ "sample.guts.partial.png",
 middle = root.find_element_by_xpath(xpath.two_columns)
 png.screenshot_element(dom, middle, step[0])
 png.top_only(step[0], 245, step[1])
-png.arrow_from_to(step[1], (700,40), (820, 40), step[2])
-png.text_at(step[2], "copy a debug command", (550,40), step[3])
+png.arrow(step[1], [(555,85), (840,85), (840, 60)], step[2])
+png.text_at(step[2], "copy a debug command", (555,50), step[3])
